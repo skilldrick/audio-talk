@@ -1,0 +1,55 @@
+<!doctype HTML>
+<html>
+  <head>
+    <title>!!!</title>
+    <style>
+      p {
+        text-align: center;
+      }
+
+      a {
+        color: white;
+        font-family: sans-serif;
+        font-size: 12px;
+        text-decoration: none;
+        margin: 5px;
+      }
+
+      #start-button {
+        margin: auto;
+        margin-top: 5%;
+        width: 90%;
+        height: 85%;
+        font-size: 50px;
+        cursor: pointer;
+      }
+
+      .container {
+        background-color: rgba(0,0,0,0.1);
+        margin: auto;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .positionable {
+        display: block;
+        position: absolute;
+      }
+    </style>
+    <script src="../jquery-2.1.4.js"></script>
+    <script src="core.js"></script>
+    <script src="video.js"></script>
+  </head>
+  <body>
+    <p><a href="https://github.com/skilldrick/cissy-video">Code</a> <a href="https://soundcloud.com/skilldrick/cissy-so-what-superstition-1">Music</a></p>
+    <audio preload="auto">
+      <source src="cissy.ogg" />
+      <source src="cissy.mp3" />
+    </audio>
+
+    <div class="container">
+      <button id="start-button">GO!</button>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+body {
+  font-family: Helvetica;
+  margin: 10px;
+  width: 1000px;
+}
+
+#distortion {
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+#meter {
+  position: fixed;
+  right: 220px;
+  top: 0;
+}
+
+.marker {
+  margin-bottom: 10px;
+}
+
+#markers {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.marker-value {
+  width: 60px;
+}
+.marker-length {
+  width: 60px;
+}
+
+.col-1, .col-2, .col-3 {
+  display: inline-block;
+}
+
+.col-1 {
+  width: 50px;
+}
+
+.col-2 {
+  width: 80px;
+}
+
+.col-3 {
+  width: 80px;
+}
