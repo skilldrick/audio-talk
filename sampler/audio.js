@@ -99,7 +99,7 @@ function setupAudio(canvas) {
 
   function setup() {
     ctx = new AudioContext()
-    loadTrack('../cissy-strut-start.mp3');
+    loadTrack('/shared/cissy-strut-start.mp3');
     master = ctx.createGain();
     var analyser = ctx.createAnalyser()
     master.connect(analyser);

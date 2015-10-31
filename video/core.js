@@ -25,10 +25,11 @@ function setupAudio() {
     var startTime = 2.9;
     var bpm = 180;
     var beatLength = 60 / bpm;
+    var lastBeat = 430;
 
     interval = setInterval(function () {
       var time = 0;
-      for (var i = 0; true; i++) {
+      for (var i = 0; i < lastBeat; i++) {
         time = startTime + beatLength * i;
         if (lastTime <= time && audio.currentTime > time) {
           $(document).trigger('beat', i);
