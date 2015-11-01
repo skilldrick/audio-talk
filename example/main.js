@@ -32,7 +32,7 @@ function playShort2() {
 }
 
 // find cheatsheet and take a look at that
-getAudioBuffer(ctx, '/shared/cissy-strut-start.mp3', function (_buffer) {
+getAudioBuffer(ctx, '../shared/cissy-strut-start.mp3', function (_buffer) {
   buffer = _buffer;
 });
 

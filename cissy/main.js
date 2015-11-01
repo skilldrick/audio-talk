@@ -145,7 +145,7 @@
     });
   }
 
-  getAudioBuffer(ctx, '/shared/cissy-strut-start.mp3', function (_buffer) {
+  getAudioBuffer(ctx, 'shared/cissy-strut-start.mp3', function (_buffer) {
     buffer = _buffer; // Expose buffer in outer scope
     $(".cissy-demo .loading").hide();
     start();
