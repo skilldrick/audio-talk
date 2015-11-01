@@ -1,0 +1,9 @@
+#cissy-demo .cissy-demo {
+  margin-top: 2em;
+}
+
+.cissy-demo label {
+  display: inline-block;
+  text-align: left;
+  width: 300px;
+}

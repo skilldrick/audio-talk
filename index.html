@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
     <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/cissy.css">
     <link rel="stylesheet" href="css/theme/black.css" id="theme">
 
     <!-- Code syntax highlighting -->
@@ -48,10 +49,47 @@
         </section>
 
         <section>
-          <h2>Hello There</h2>
-          <p>
-            reveal.js enables you to create beautiful interactive slide decks using HTML. This presentation will show you examples of what it can do.
-          </p>
+          <h2>Cissy Strut</h2>
+          <p>The Meters, 1969</p>
+          <audio preload="auto" controls>
+            <source src="shared/cissy-strut-start.mp3" />
+          </audio>
+        </section>
+
+        <section>
+          <h2>Cissy, So What, Superstition, Papa, Chameleon</h2>
+          <p>Skilldrick, 2012</p>
+          <audio preload="auto" controls>
+            <source src="video/cissy.mp3" />
+          </audio>
+        </section>
+
+        <section id="cissy-demo">
+          <h2>Cissy in JS</h2>
+          <p>Skilldrick, 2015</p>
+
+          <div class="cissy-demo">
+            <span class="loading">Loading audio ...</span>
+
+            <div class="sliders">
+              <div>
+                <input type=range min=0 max=1 value=0 data-channel=0 step=".05">
+                <label>Main loop</label>
+              </div>
+              <div>
+                <input type=range min=0 max=1 value=0 data-channel=1 step=".05">
+                <label>Fast guitar loop</label>
+              </div>
+              <div>
+                <input type=range min=0 max=1 value=0 data-channel=2 step=".05">
+                <label>Kick and cymbal</label>
+              </div>
+              <div>
+                <input type=range min=0 max=1 value=0 data-channel=3 step=".05">
+                <label>Snare</label>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section style="text-align: left;">
@@ -68,6 +106,9 @@
     <script src="lib/js/head.min.js"></script>
     <script src="js/reveal.js"></script>
 
+  <script src="/shared/jquery-2.1.4.js"></script>
+  <script src="/shared/ajax.js"></script>
+  <script src="/cissy/main.js"></script>
     <script>
 
       // Full list of configuration options available at:
