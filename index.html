@@ -15,8 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
     <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/cissy.css">
     <link rel="stylesheet" href="css/theme/black.css" id="theme">
+    <link rel="stylesheet" href="css/cissy.css">
 
     <!-- Code syntax highlighting -->
     <link rel="stylesheet" href="lib/css/zenburn.css">
@@ -52,7 +52,7 @@
           <h2>Cissy Strut</h2>
           <p>The Meters, 1969</p>
           <audio preload="auto" controls>
-            <source src="shared/cissy-strut-start.mp3" />
+            <source src="shared/cissy-strut.mp3" />
           </audio>
         </section>
 
@@ -64,11 +64,11 @@
           </audio>
         </section>
 
-        <section id="cissy-demo">
+        <section class="cissy-demo">
           <h2>Cissy in JS</h2>
           <p>Skilldrick, 2015</p>
 
-          <div class="cissy-demo">
+          <div>
             <span class="loading">Loading audio ...</span>
 
             <div class="sliders">
@@ -92,10 +92,288 @@
           </div>
         </section>
 
+        <section>
+          <h2>The Web Audio API</h2>
+        </section>
+
+        <section>
+          <h3>Create the <code>AudioContext</code></h3>
+
+          <pre><code class="hljs" data-trim>
+// webkit prefix needed for Safari and iOS Safari
+var ctx = new (window.AudioContext || window.webkitAudioContext)();
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Load Some Audio</h3>
+
+          <pre><code class="hljs" data-trim>
+function getAudioBuffer(ctx, filename, cb) {
+  getData(filename, function (audioData) {
+    ctx.decodeAudioData(audioData,
+      function (buffer) {
+        cb(buffer);
+      }
+    );
+  });
+}
+
+function getData(filename, cb) {
+  var request = new XMLHttpRequest();
+  request.open('GET', filename, true);
+  request.responseType = 'arraybuffer';
+  request.onload = function() {
+    cb(request.response);
+  }
+  request.send();
+}
+          </code></pre>
+          <p><small><a href="shared/ajax.js">Source code</a></small></p>
+        </section>
+
+        <section>
+          <h3>Create and play an <code>AudioBufferSourceNode</code></h3>
+
+          <pre><code class="hljs" data-trim>
+var ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+getAudioBuffer(ctx, 'shared/cissy-strut.mp3', function (buffer) {
+  // Create a new BufferSourceNode
+  function createSource() {
+    var source = ctx.createBufferSource();
+    source.buffer = buffer;
+    source.connect(ctx.destination);
+    return source;
+  }
+
+  window.playSource = function () {
+    var source = createSource();
+    source.start(0, 35.52, 1.4);
+  };
+});
+          </code></pre>
+          <p><small><a href="examples/example1.js">Source code</a></small></p>
+        </section>
+
+        <section>
+          <h3><code>playBufferFrom</code></h3>
+
+          <pre><code class="hljs" data-trim>
+function playBufferFrom(offset, length) {
+  var bufferSource = createSource(); // From previous slide
+  bufferSource.start(0, offset, length);
+}
+
+window.playMain = function () {
+  playBufferFrom(35.52, 1.4);
+};
+
+window.playShort1 = function () {
+  playBufferFrom(51.61, 1/6);
+};
+
+window.playShort2 = function () {
+  playBufferFrom(50.24, 1/6);
+};
+          </code></pre>
+          <p><small><a href="examples/example2.js">Source code</a></small></p>
+        </section>
+
+        <section>
+          <h3>Create a <code>GainNode</code></h3>
+
+          <pre><code class="hljs" data-trim>
+function createSource(output) {
+  var source = ctx.createBufferSource();
+  source.buffer = buffer;
+  source.connect(output);
+  return source;
+}
+
+function playBufferFrom(offset, length, output) {
+  var bufferSource = createSource(output);
+  bufferSource.start(0, offset, length);
+}
+
+window.playWithGain = function (gain) {
+  var gainNode = ctx.createGain();
+  gainNode.connect(ctx.destination);
+  gainNode.gain.value = gain;
+
+  playBufferFrom(35.52, 1.4, gainNode);
+};
+          </code></pre>
+          <p><small><a href="examples/example3.js">Source code</a></small></p>
+        </section>
+
+        <section>
+          <h3>Playing in the Future</h3>
+
+          <pre><code class="hljs" data-trim>
+function playBufferFrom(when, offset, length, output) {
+  var bufferSource = createSource(output);
+  bufferSource.start(when, offset, length);
+}
+
+window.playFourTimes = function () {
+  playBufferFrom(ctx.currentTime + 0 * 1.33, 35.52, 1.33, ctx.destination);
+  playBufferFrom(ctx.currentTime + 1 * 1.33, 35.52, 1.33, ctx.destination);
+  playBufferFrom(ctx.currentTime + 2 * 1.33, 35.52, 1.33, ctx.destination);
+  playBufferFrom(ctx.currentTime + 3 * 1.33, 35.52, 1.33, ctx.destination);
+};
+          </code></pre>
+          <p><small><a href="examples/example4.js">Source code</a></small></p>
+        </section>
+
+        <section>
+          <h3>Declaratively Defining Patterns</h3>
+
+          <pre><code class="hljs" data-trim>
+var bpm = 90;
+var beatLength = 60 / bpm;
+var quarterBeatLength = beatLength / 4;
+
+// Locations of each sample within cissy-strut.mp3
+var labels = {
+  short1: 51.61,
+  short2: 50.24
+};
+
+var fastPattern = [
+//  label   offset  length
+  ['short1',  0,      1],
+  ['short1',  2,      1],
+  ['short1',  5,      1],
+  ['short1',  7,      1],
+  ['short1',  8,      1],
+  ['short1',  9,      1],
+  ['short2', 10,      1],
+  ['short2', 11,      1],
+  ['short1', 12,      1],
+  ['short1', 13,      1],
+  ['short2', 14,      1],
+  ['short1', 15,    .33],
+  ['short1', 15.33, .33],
+  ['short1', 15.66, .33],
+  ['short1', 16,      1],
+  ['short1', 18,      1],
+  ['short1', 21,      1],
+  ['short1', 23,    .33],
+  ['short1', 23.33, .33],
+  ['short1', 23.66, .33],
+  ['short1', 24,      1],
+  ['short1', 25,      1],
+  ['short2', 26,      1],
+  ['short2', 27,      1],
+  ['short1', 28,      1],
+  ['short1', 29,      1],
+  ['short2', 30,    .33],
+  ['short2', 30.33, .33],
+  ['short2', 30.66,   1]
+];
+
+// start is measured in quarter-beats from start of playing
+// length is measured in quarter-beats
+function playSample(label, start, length, output, startTime) {
+  playBufferFrom(
+    startTime + start * quarterBeatLength,
+    labels[label],
+    length * quarterBeatLength,
+    output
+  );
+}
+
+function playPattern(pattern, output, startTime) {
+  pattern.forEach(function (sample) {
+    playSample(
+      sample[0],
+      sample[1],
+      sample[2],
+      output,
+      startTime
+    );
+  });
+}
+
+window.playFastPattern = function () {
+  playPattern(fastPattern, ctx.destination, ctx.currentTime);
+};
+          </code></pre>
+          <p><small><a href="examples/example5.js">Source code</a></small></p>
+        </section>
+
+        <section>
+          <h3>Playing the Same Pattern Multiple Times</h3>
+
+          <pre><code class="hljs" data-trim>
+var quarterBeatsPerPattern = 32;
+
+function playPattern(pattern, patternNumber, output, startTime) {
+  pattern.forEach(function (sample) {
+    playSample(
+      sample[0],
+      patternNumber * quarterBeatsPerPattern + sample[1],
+      sample[2],
+      output,
+      startTime
+    );
+  });
+}
+
+window.playFastPatternFourTimes = function () {
+  playPattern(fastPattern, 0, ctx.destination, ctx.currentTime);
+  playPattern(fastPattern, 1, ctx.destination, ctx.currentTime);
+  playPattern(fastPattern, 2, ctx.destination, ctx.currentTime);
+  playPattern(fastPattern, 3, ctx.destination, ctx.currentTime);
+};
+          </code></pre>
+          <p><small><a href="examples/example6.js">Source code</a></small></p>
+        </section>
+
+        <section>
+          <h3>Creating Gain Nodes</h3>
+
+          <pre><code class="hljs" data-trim>
+          </code></pre>
+          <p><small><a href="examples/example6.js">Source code</a></small></p>
+        </section>
+
+        <section class="cissy-demo">
+          <h3>Demo (Again)</h3>
+
+          <div>
+            <span class="loading">Loading audio ...</span>
+
+            <div class="sliders">
+              <div>
+                <input type=range min=0 max=1 value=0 data-channel=0 step=".05">
+                <label>Main loop</label>
+              </div>
+              <div>
+                <input type=range min=0 max=1 value=0 data-channel=1 step=".05">
+                <label>Fast guitar loop</label>
+              </div>
+              <div>
+                <input type=range min=0 max=1 value=0 data-channel=2 step=".05">
+                <label>Kick and cymbal</label>
+              </div>
+              <div>
+                <input type=range min=0 max=1 value=0 data-channel=3 step=".05">
+                <label>Snare</label>
+              </div>
+            </div>
+          </div>
+
+          <p><small><a href="examples/cissy.js">Source code</a></small></p>
+        </section>
+
         <section style="text-align: left;">
           <h1>THE END</h1>
           <p>
-            - <a href="https://github.com/skilldrick/cissy-talk">These slides on Github</a>
+            - <a href="https://github.com/skilldrick/audio-talk">These slides on Github</a>
+            <br>
+            - <a href="http://skilldrick.co.uk/video">Video!!!</a>
           </p>
         </section>
 
@@ -106,9 +384,16 @@
     <script src="lib/js/head.min.js"></script>
     <script src="js/reveal.js"></script>
 
-  <script src="shared/jquery-2.1.4.js"></script>
-  <script src="shared/ajax.js"></script>
-  <script src="cissy/main.js"></script>
+    <script src="shared/jquery-2.1.4.js"></script>
+    <script src="shared/ajax.js"></script>
+    <script src="examples/cissy.js"></script>
+    <script src="examples/example1.js"></script>
+    <script src="examples/example2.js"></script>
+    <script src="examples/example3.js"></script>
+    <script src="examples/example4.js"></script>
+    <script src="examples/example5.js"></script>
+    <script src="examples/example6.js"></script>
+
     <script>
 
       // Full list of configuration options available at:

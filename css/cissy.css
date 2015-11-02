@@ -1,3 +1,7 @@
+.reveal h3 {
+  text-transform: none;
+}
+
 #cissy-demo .cissy-demo {
   margin-top: 2em;
 }
