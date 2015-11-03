@@ -161,8 +161,8 @@ getAudioBuffer(ctx, 'shared/cissy-strut.mp3', function (buffer) {
 
           <pre><code class="hljs" data-trim>
 function playBufferFrom(offset, length) {
-  var bufferSource = createSource(); // From previous slide
-  bufferSource.start(0, offset, length);
+  var source = createSource(); // From previous slide
+  source.start(0, offset, length);
 }
 
 window.playMain = function () {
@@ -192,8 +192,8 @@ function createSource(output) {
 }
 
 function playBufferFrom(offset, length, output) {
-  var bufferSource = createSource(output);
-  bufferSource.start(0, offset, length);
+  var source = createSource(output);
+  source.start(0, offset, length);
 }
 
 window.playWithGain = function (gain) {
@@ -205,6 +205,7 @@ window.playWithGain = function (gain) {
 };
           </code></pre>
           <p><small><a href="examples/example3.js">Source code</a></small></p>
+          <canvas id="gain-diagram" width=864 height=120></canvas>
         </section>
 
         <section>
@@ -212,8 +213,8 @@ window.playWithGain = function (gain) {
 
           <pre><code class="hljs" data-trim>
 function playBufferFrom(when, offset, length, output) {
-  var bufferSource = createSource(output);
-  bufferSource.start(when, offset, length);
+  var source = createSource(output);
+  source.start(when, offset, length);
 }
 
 window.playFourTimes = function () {
@@ -568,6 +569,7 @@ getAudioBuffer(ctx, 'shared/cissy-strut.mp3', function (buffer) {
     <script src="examples/example4.js"></script>
     <script src="examples/example5.js"></script>
     <script src="examples/example6.js"></script>
+    <script src="js/gain-diagram.js"></script>
 
     <script>
 

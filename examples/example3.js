@@ -9,8 +9,8 @@ getAudioBuffer(ctx, 'shared/cissy-strut.mp3', function (buffer) {
   }
 
   function playBufferFrom(offset, length, output) {
-    var bufferSource = createSource(output);
-    bufferSource.start(0, offset, length);
+    var source = createSource(output);
+    source.start(0, offset, length);
   }
 
   window.playWithGain = function (gain) {
