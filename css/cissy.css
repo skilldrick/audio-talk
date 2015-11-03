@@ -1,3 +1,7 @@
+.reveal h1 {
+  font-size: 3.5em;
+}
+
 .reveal h3 {
   text-transform: none;
 }
