@@ -97,7 +97,7 @@
         </section>
 
         <section>
-          <h3>Create the <code>AudioContext</code></h3>
+          <h3>Creating the <code>AudioContext</code></h3>
 
           <pre><code class="hljs" data-trim>
 // webkit prefix needed for Safari and iOS Safari
@@ -106,7 +106,7 @@ var ctx = new (window.AudioContext || window.webkitAudioContext)();
         </section>
 
         <section>
-          <h3>Load Some Audio</h3>
+          <h3>Loading Audio</h3>
 
           <pre><code class="hljs" data-trim>
 function getAudioBuffer(ctx, filename, cb) {
@@ -133,7 +133,7 @@ function getData(filename, cb) {
         </section>
 
         <section>
-          <h3>Create and play an <code>AudioBufferSourceNode</code></h3>
+          <h3>Creating and playing an <code>AudioBufferSourceNode</code></h3>
 
           <pre><code class="hljs" data-trim>
 var ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -181,7 +181,7 @@ window.playShort2 = function () {
         </section>
 
         <section>
-          <h3>Create a <code>GainNode</code></h3>
+          <h3>Creating a <code>GainNode</code></h3>
 
           <pre><code class="hljs" data-trim>
 function createSource(output) {
