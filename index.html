@@ -322,11 +322,9 @@ function playPattern(pattern, patternNumber, output, startTime) {
   });
 }
 
-window.playFastPatternFourTimes = function () {
+window.playFastPatternTwice = function () {
   playPattern(fastPattern, 0, ctx.destination, ctx.currentTime);
   playPattern(fastPattern, 1, ctx.destination, ctx.currentTime);
-  playPattern(fastPattern, 2, ctx.destination, ctx.currentTime);
-  playPattern(fastPattern, 3, ctx.destination, ctx.currentTime);
 };
           </code></pre>
           <p><small><a href="examples/example6.js">Source code</a></small></p>
@@ -545,13 +543,27 @@ getAudioBuffer(ctx, 'shared/cissy-strut.mp3', function (buffer) {
           </div>
         </section>
 
-        <section style="text-align: left;">
-          <h1>THE END</h1>
-          <p>
-            - <a href="https://github.com/skilldrick/audio-talk">These slides on Github</a> <br>
-            - <a href="sampler">JS Sampler using Cissy Strut</a> <br>
-            - <a href="video">Video!!!</a>
+        <section id="the-end" style="text-align: left;">
+          <h2>THE END</h2>
+          <h3>Some Stuff I Made</h3>
+          <ul>
+            <li><a href="https://github.com/skilldrick/audio-talk">These slides on Github</a></li>
+
+            <li><a href="sampler">JS Sampler using Cissy Strut</a></li>
+            <li><a href="http://skilldrick.co.uk/samplejs">JS Sampler using another song (with delay and distortion)</a></li>
+            <li><a href="http://skilldrick.co.uk/eagles">Randomly generated chords from Hotel California in 11/8</a></li>
+            <li><a href="http://skilldrick.co.uk/fft">FFT (fast fourier transform) using Audio API</a></li>
+            <li><a href="http://skilldrick.co.uk/tonegame">Tonegame: A tone-guessing game</a></li>
+            <li><a href="video">Video for Cissy, So What, Superstition, Papa, Chameleon</a></li>
+          </ul>
           </p>
+
+          <h3>Other links</h3>
+          <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API">MDN docs</a></li>
+          </ul>
+
+
         </section>
 
       </div>

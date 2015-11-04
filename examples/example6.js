@@ -83,10 +83,8 @@ getAudioBuffer(ctx, 'shared/cissy-strut.mp3', function (buffer) {
     });
   }
 
-  window.playFastPatternFourTimes = function () {
+  window.playFastPatternTwice = function () {
     playPattern(fastPattern, 0, ctx.destination, ctx.currentTime);
     playPattern(fastPattern, 1, ctx.destination, ctx.currentTime);
-    playPattern(fastPattern, 2, ctx.destination, ctx.currentTime);
-    playPattern(fastPattern, 3, ctx.destination, ctx.currentTime);
   };
 });
