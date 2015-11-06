@@ -6,6 +6,11 @@
   text-transform: none;
 }
 
+.reveal #the-end h3 {
+  margin: 20px 0 0 0 ;
+  font-size: 1.1em;
+}
+
 #cissy-demo .cissy-demo {
   margin-top: 2em;
 }
